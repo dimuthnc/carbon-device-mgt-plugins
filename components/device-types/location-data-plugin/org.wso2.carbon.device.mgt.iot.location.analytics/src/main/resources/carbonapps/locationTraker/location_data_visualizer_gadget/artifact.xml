@@ -18,5 +18,5 @@
   -->
 
 <artifact name= "location_data_visualizer_gadget" version="1.0.0" type="dashboards/gadget" serverRole="DataAnalyticsServer">
-	<file>location_data_visualizer</file>
+	<file>location-data-visualizer</file>
 </artifact>

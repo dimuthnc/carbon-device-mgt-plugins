@@ -10,63 +10,79 @@
 
         <head>
 
-          <link rel="stylesheet" type="text/css" href="css/style.css">
-          <link rel="stylesheet" type="text/css"  href="lib/css/bootstrap.css">
+
+    <!--
+    -->
+    <!--
+    loading stylesheets
+    -->
+
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css"  href="lib/css/bootstrap.css">
 
 
 
-           <script src="lib/js/d3.js"></script>
-           <script src="lib/js/d3tip.js"></script>
-            <script src="js/graph.js"></script>
-              <script src="js/traffic.js"></script>
-              <script src="lib/js/jquery.js"></script>
-              <script src="lib/js/bootstrap.js"></script>
-            <script src="js/RestCaller.js"></script>
+    <!--
+    loading javascript libraries
+    -->
+
+    <script src="lib/js/jquery.js"></script>
+    <script src="lib/js/bootstrap.js"></script>
+    <script src="lib/js/d3.js"></script>
+    <script src="lib/js/d3tip.js"></script>
 
 
-        </head>
-        <body>
+    <!--
+    Loading created javascript functions
+    -->
 
-        <script>
-          var x = d3.scale.linear().range([0,100]);
-          function loadImage(x,y) {
-          
-              var image = d3.select("g").append("svg:image")
-                  .attr("xlink:href", "/portal/store/carbon.super/fs/gadget/location-data-visualizer/img/floor.jpg")
-                  .attr("width", 1500)
-                  .attr("height", 699)
-                  .attr("x",x)
-                  .attr("y",y);
+    <script src="js/RestCaller.js"></script>
+    <script src="js/graph.js"></script>
+    <script src="js/traffic.js"></script>
+</head>
 
-          }
+<body>
 
-          var imageX=-30;
+<script src="lib/js/d3.js"></script>
+<script src="lib/js/d3tip.js"></script>
+<script>
+
+   //initializing variables
+    var imageX=-30;
     var imageY=-5;
     var margin = {top: 20, right: 20, bottom: 30, left: 40},
             width = 1400 - margin.left - margin.right,
             height = 744 - margin.top - margin.bottom;
 
+
+
+   //setting axises
     var x = d3.scale.linear()
             .range([0, width]);
 
     var y = d3.scale.linear()
             .range([0,height]);
+    loadImage(imageX,imageY);
 
+
+   //adding a SVG element to hold the map image
     var svg = d3.select("body").append("svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
             .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-
     loadImage(imageX,imageY);
-   getDimension();
+
+
+   //initializing axises with database and slider with file values
+    getDimension();
     GetInitStartTime();
 
     GetEndTime();
-        </script>
+</script>
 
-        <div class="well">
+
+<div class="well">
     <div  class="container">
             <div class="col-sm-4">
                 <h3 class="text-primary">Select Time</h3>
@@ -166,7 +182,7 @@
         </div>
     </div>
 </div>
-<!-- Modal -->
+<!-- Modal for showing frequencies-->
 <div class="modal fade row-fluid" id="frequency_view" role="dialog" >
     <div class="modal-dialog">
 
@@ -186,7 +202,7 @@
 
     </div>
 </div>
-        </body>
+</body>
 
 ]]>
 </Content>

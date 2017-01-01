@@ -1,4 +1,23 @@
+/*
+ * Copyright (c) 2016, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
+
+
+
+ //this method request starting timestamp and set it in relevant UI components
 var GetInitStartTime = function(){
   var endpointUrl = 'http://localhost:9763/location-data-visualizer/service/time/start' ;
   wso2.gadgets.XMLHttpRequest.get(endpointUrl,
@@ -18,6 +37,10 @@ var GetInitStartTime = function(){
 );
 
 }
+
+
+
+//this method request ending timestamp and set it in relevant UI components
 var GetEndTime = function(){
   var url = 'http://localhost:9763/location-data-visualizer/service/time/end'
   wso2.gadgets.XMLHttpRequest.get(url,
@@ -35,6 +58,7 @@ var GetEndTime = function(){
 
 }
 
+//when this method is called, it fletch starting time and range from UI components and request triggered sensor data in that range and draw them in the map
 var show = function(){
 
   var start = parseInt(document.getElementById('stt').value);
@@ -68,6 +92,7 @@ var show = function(){
 
 }
 
+//this method send a file to evaluate for typical scenario and save as output.txt
 var sendFile = function(){
   var file = document.getElementById('fileupload').files[0];
   var fd = new FormData();
@@ -77,7 +102,7 @@ var sendFile = function(){
   var url ='https://localhost:9763/location-data-visualizer/service/file/upload';
   wso2.gadgets.XMLHttpRequest.post(url,fd,
              function(data){
-               alert("file upload sucessfull");
+
                GetInitStartTime();
                GetEndTime();
                show();
@@ -93,6 +118,7 @@ var sendFile = function(){
 
 
 
+//request dimension of map area. Then set those values in axises
 var getDimension = function(){
   var url='http://localhost:9763/location-data-visualizer/service/get/dimension';
   var value;
@@ -117,6 +143,7 @@ var getDimension = function(){
 
 }
 
+//request data chunk and call play it using doScaledTimeout Method
 var play = function(){
   var start=parseInt(document.getElementById('stt').value);
   var chunk =parseInt(document.getElementById('gap').value)
@@ -147,6 +174,8 @@ var play = function(){
 
 }
 
+
+//when a dataset in appropriate format is given to this function, this method will visualize that dataset on the map
 
 var draw=function (data) {
 
@@ -208,6 +237,7 @@ var draw=function (data) {
 
 };
 
+//request triggering densities and show them with colour variations when respond comes
 var showDensity = function(){
   var start = parseInt(document.getElementById('stt').value);
   var data2 = [];
@@ -249,7 +279,7 @@ var showDensity = function(){
  );
 
 }
-
+//drawing function with color variations
 var drawDensity=function (data,max,min) {
 
     svg.selectAll(".series").remove();
@@ -334,8 +364,9 @@ var drawDensity=function (data,max,min) {
         });
 
 };
+//request upcoming frequencies of a particular sensor. Show them in a modal when respond comes. Range in UI will used as range in here too
 var getFrequency = function(id){
-  alert("get frequency called");
+
   var start = parseInt(document.getElementById('stt').value);
   document.getElementById('valueSlider').value = start;
   var gap = parseInt(document.getElementById('gap').value);
@@ -450,10 +481,9 @@ var getFrequency = function(id){
 }
 
 var showScene = function(){
-  alert("showScene called");
+
   var data2=[];
   var endpointUrl = 'http://localhost:9763/location-data-visualizer/service/typical/scene'+'?hour=' + document.getElementById('time').value + '&day=' +document.getElementById('day').value;
-  console.log(endpointUrl);
   wso2.gadgets.XMLHttpRequest.get(endpointUrl,
     function(data){
       var X = JSON.parse(JSON.stringify(data.X));
